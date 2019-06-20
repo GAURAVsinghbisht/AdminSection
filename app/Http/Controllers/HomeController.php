@@ -26,7 +26,19 @@ class HomeController extends Controller
      */
     public function index()
     {
+  $user = Auth::user();
+  // dd($user->hasAnyRole(Role::all()));
 
+  if($user->hasAnyRole(Role::all()) == false){
+
+
+    $role = Role::findbyID(3);
+    $user->givePermissionTo([
+           'product-list',
+           'product-create',
+           'product-edit',
+           ]);
+     }
 
 
         return view('home');
